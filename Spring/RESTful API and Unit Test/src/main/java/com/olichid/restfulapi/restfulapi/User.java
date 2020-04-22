@@ -1,34 +1,17 @@
 package com.olichid.restfulapi.restfulapi;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(description = "User Entity")
 public class User {
+
+    @ApiModelProperty("User's ID")
     private Long id;
+    @ApiModelProperty("User's name")
     private String name;
+    @ApiModelProperty("User's age")
     private Integer age;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 }

@@ -1,9 +1,13 @@
 package com.olichid.restfulapi.restfulapi;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@Api(tags = "User Management")
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
@@ -17,6 +21,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/")
+    @ApiOperation(value = "Acquire user list")
     public List<User> getUserList() {
         List<User> userList = new ArrayList<User>(users.values());
 
@@ -30,6 +35,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/")
+    @ApiOperation(value = "Create user", notes = "Create user with user object")
     public String postUser(@RequestBody User user) {
         // Annotation @RequestBody used to bind uploaded application/json data in http request
         users.put(user.getId(), user);
@@ -44,6 +50,7 @@ public class UserController {
      */
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Acquire user information", notes = "Acquire user information with id in url")
     public User getUser(@PathVariable long id) {
         // id in url could bind as param in method via @PathVariable
         return users.get(id);
@@ -57,6 +64,8 @@ public class UserController {
      * @return
      */
     @PutMapping("/{id}")
+    @ApiImplicitParam(paramType = "path", dataType = "Long", name = "id", value = "User ID", required = true, example = "1")
+    @ApiOperation(value = "Update user information", notes = "Get user need to be updated from id in url，and update the information")
     public String putUser(@PathVariable Long id, @RequestBody User user) {
         User updateUser = users.get(id);
         updateUser.setName(user.getName());
@@ -72,6 +81,7 @@ public class UserController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete user", notes = "Delete user with id in url")
     public String deleteUser(@PathVariable Long id) {
         users.remove(id);
         return "success";
